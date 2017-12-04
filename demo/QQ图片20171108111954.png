@@ -1,0 +1,14 @@
+function (err) {
+            var response;
+            if (err) {
+                console.log(err)
+            } else {
+                response = {
+                    message: "文件上传成功！",
+                    filename: req.files[0].originalname
+                }
+            }
+
+            console.log(response);
+            res.end(JSON.stringify(response))
+        }
