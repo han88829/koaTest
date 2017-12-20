@@ -16,6 +16,7 @@
     "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "fs.promised": "^3.0.0",
+    "http": "^0.0.0",
     "koa": "^2.3.0",
     "koa-body": "^2.3.0",
     "koa-compose": "^4.0.0",
