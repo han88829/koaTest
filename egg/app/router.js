@@ -9,5 +9,5 @@ module.exports = app => {
   router.post('/login', controller.login.index);
   router.get('/news', controller.news.index);
 };
-
+   
 
