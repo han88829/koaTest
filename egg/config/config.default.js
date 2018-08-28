@@ -15,5 +15,9 @@ module.exports = appInfo => {
       ".html": 'ejs',
     },
   };
+
+  // 配置公共的url
+  config.api = 'http://www.phonegap100.com';
+
   return config;
 };
