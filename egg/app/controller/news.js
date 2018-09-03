@@ -6,7 +6,7 @@ class NewsController extends Controller {
     async index() {
         const list = await this.service.news.getNewsList();
         const user = await this.service.user.getUserInfo();
-        console.log(list);
+        // console.log(list); 
 
         // 这是异步方法，await执行
         await this.ctx.render('news', { list, user });

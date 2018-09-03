@@ -6,8 +6,13 @@ module.exports = appInfo => {
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1535371630296_1830';
 
-  // add your config here
-  config.middleware = [];
+  // add your config here 配置中间件
+  config.middleware = ['printdate', 'forbidip'];
+
+  // 给printdate传递参数
+  config.forbidip = {
+    aaa: 1111
+  }
 
   // 配置模板殷勤
   config.view = {
