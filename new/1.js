@@ -2,6 +2,8 @@ const koa = require('koa');
 
 const router = require('koa-router')();
 const bodyParser = require('koa-bodyparser');
+var jwt = require('koa-jwt');
+var jsonwebtoken = require('jsonwebtoken');
 
 const app = new koa();
 
@@ -11,8 +13,40 @@ app.use(bodyParser({
     }
 }));
 
+// Custom 401 handling if you don't want to expose koa-jwt errors to users
+app.use(function (ctx, next) {
+    return next().catch((err) => {
+        if (401 == err.status) {
+            ctx.status = 401;
+            ctx.body = 'Protected resource, use Authorization header to get access\n';
+        } else {
+            throw err;
+        }
+    });
+});
+
+const secert = 'jwt_secret';
+app.use(jwt({
+    secret: secert,
+}).unless({
+    path: [/\/register/, /\/login/],
+}));
+
 router.get('/', async (ctx) => {
     ctx.body = "你好 koa!";
+})
+
+router.get('/login', async (ctx) => {
+    let data = await ctx.request.query;
+    console.log(data);
+    ctx.body = {
+        status: 1,
+        token: jsonwebtoken.sign({
+            data: data,
+            // 设置 token 过期时间
+            exp: Math.floor(Date.now() / 1000) + (60 * 60), // 60 seconds * 60 minutes = 1 hour
+        }, 'jwt_secret')
+    };
 })
 
 router.get('/test/:id', async (ctx) => {
